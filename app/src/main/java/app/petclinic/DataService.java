@@ -21,11 +21,16 @@ public interface DataService {
     @GET("especialidades")
     Call<Data> getEspecialidades();
 
+    @GET("mascotas/{owner_id}")
+    Call<Data> getMascotaByIdOwner(@Path("owner_id") int owner_id);
+
     @GET("mascotas/byid/{id}")
     Call<Data> getMascotaById(@Path("id") int id);
 
     @POST("citas/new")
     Call<Data> addCita(@Body Data data);
+
+
 
 
 

@@ -44,12 +44,17 @@ public class PanelActivity extends AppCompatActivity {
     Data especialidad;
     Data mascota;
     ArrayList<Data> especialidades = new ArrayList<>();
-    ArrayList<Data> mascotas = new ArrayList<>();
+    ArrayList<String> mascotas = new ArrayList<>();
     Integer id_masco;
     Integer ind;
 
 
-    //falta lista del mas nuevo al mas viejo, corregir el paso de id para cargar las vistas
+    //falta lista del mas nuevo al mas viejo
+    //falta obtener el owner_id al momento de logearse
+    //falta pasar el owner_id al intent de agregar citas
+    //falta terminar el modulo de agregar citas
+    //falta obtener el tipo de mascota del API
+    
 
     ListView simpleList;
     ArrayAdapter<String> arrayAdapter;
@@ -202,9 +207,7 @@ public class PanelActivity extends AppCompatActivity {
         call.enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
-                    mascota = new Data();
-                    mascota.setName(response.body().getMascotas().get(0).getName());
-                    mascotas.add(mascota);
+                    mascotas.add(response.body().getMascotas().get(0).getName());
                     reWriteMas();
             }
 
@@ -231,7 +234,7 @@ public class PanelActivity extends AppCompatActivity {
     }
 
     public void reWriteMas(){
-        resultados.get(ind).setMascota(mascotas.get(ind).getName());
+        resultados.get(ind).setMascota(mascotas.get(ind));
         ind++;
     }
 
@@ -262,6 +265,10 @@ public class PanelActivity extends AppCompatActivity {
     }
 
 
+    public void agregar(View view) {
+        Intent screen = new Intent(PanelActivity.this, AddActivity.class);
+        startActivity(screen);
+    }
 }
 
 

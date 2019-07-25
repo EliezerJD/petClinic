@@ -1,5 +1,7 @@
 package app.petclinic;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -214,4 +216,5 @@ public class Data {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
 }
