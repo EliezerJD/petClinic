@@ -54,7 +54,7 @@ public class PanelActivity extends AppCompatActivity {
     //falta pasar el owner_id al intent de agregar citas
     //falta terminar el modulo de agregar citas
     //falta obtener el tipo de mascota del API
-    
+
 
     ListView simpleList;
     ArrayAdapter<String> arrayAdapter;
@@ -239,28 +239,7 @@ public class PanelActivity extends AppCompatActivity {
     }
 
     public void agregaprueba(){
-        Data prueba = new Data();
-        prueba.setOwner_id("4");
-        prueba.setFecha("2019-01-01");
-        prueba.setHora("11:00:00");
-        prueba.setMascota("13");
-        prueba.setEspecialidad("1");
-        prueba.setConfirmacion("0");
 
-        Retrofit retrofit = Connection.getClient();
-        DataService dataService = retrofit.create(DataService.class);
-        Call<Data> call = dataService.addCita(prueba);
-        call.enqueue(new Callback<Data>() {
-            @Override
-            public void onResponse(Call<Data> call, Response<Data> response) {
-                System.out.println(response.message());
-            }
-
-            @Override
-            public void onFailure(Call<Data> call, Throwable t) {
-
-            }
-        });
 
     }
 
