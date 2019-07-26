@@ -3,15 +3,13 @@ package app.petclinic;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,6 +34,8 @@ public class AddActivity extends AppCompatActivity {
     Button btnFecha;
     Button btnHora;
     Calendar calendario = Calendar.getInstance();
+    String sessionId;
+    String usernameT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,8 @@ public class AddActivity extends AppCompatActivity {
         comboEspecialidades= findViewById(R.id.comboEspecialidades);
         btnFecha=findViewById(R.id.btnFecha);
         btnHora=findViewById(R.id.btnHora);
+        sessionId = getIntent().getStringExtra("id");
+        usernameT = getIntent().getStringExtra("name");
         getMacostas();
 
 
@@ -109,7 +111,7 @@ public class AddActivity extends AppCompatActivity {
     private void getMacostas(){
         Retrofit retrofit = Connection.getClient();
         DataService dataService = retrofit.create(DataService.class);
-        Call<Data> call = dataService.getMascotaByIdOwner(4);
+        Call<Data> call = dataService.getMascotaByIdOwner(Integer.parseInt(sessionId));
         call.enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
@@ -155,7 +157,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void add(View view) {
         Data prueba = new Data();
-        prueba.setOwner_id("4");
+        prueba.setOwner_id(sessionId);
         prueba.setFecha(btnFecha.getText().toString());
         prueba.setHora(btnHora.getText().toString()+":00");
         prueba.setMascota(buscarPosMacota());
@@ -173,6 +175,8 @@ public class AddActivity extends AppCompatActivity {
                     toast1.show();
                     Intent screen = new Intent(AddActivity.this, PanelActivity.class);
                     screen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    screen.putExtra("id", sessionId);
+                    screen.putExtra("name", usernameT);
                     startActivity(screen);
                 }else{
                     Toast toast1 = Toast.makeText(getApplicationContext(), "Error al agregar la cita", Toast.LENGTH_SHORT);

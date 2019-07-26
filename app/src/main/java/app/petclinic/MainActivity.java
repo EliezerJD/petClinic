@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     TextView warnEmail;
     TextView warnPassword;
     TextView warnLogin;
+    String nameUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +93,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void screenPosLogin(String name, String id){
-        Intent screen = new Intent(MainActivity.this, PanelActivity.class);
-        screen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        screen.putExtra("name",name);
-        screen.putExtra("id",id);
-        startActivity(screen);
+        nameUser= name;
+        Retrofit retrofit = Connection.getClient();
+        DataService dataService = retrofit.create(DataService.class);
+        Call<Data> call = dataService.getOwnerId(id);
+        call.enqueue(new Callback<Data>() {
+            @Override
+            public void onResponse(Call<Data> call, Response<Data> response) {
+                Intent screen = new Intent(MainActivity.this, PanelActivity.class);
+                screen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                screen.putExtra("name", nameUser);
+                screen.putExtra("id",response.body().getOwner());
+                startActivity(screen);
+            }
+
+            @Override
+            public void onFailure(Call<Data> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
 

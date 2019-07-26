@@ -62,6 +62,10 @@ public class Data {
     @Expose
     private String deleted;
 
+    @SerializedName("owner")
+    @Expose
+    private String owner;
+
     @SerializedName("userId")
     @Expose
     private String userId;
@@ -69,6 +73,10 @@ public class Data {
     @SerializedName("owner_id")
     @Expose
     private String owner_id;
+
+    @SerializedName("type_id")
+    @Expose
+    private String type_id;
 
     @SerializedName("confirmacion")
     @Expose
@@ -217,4 +225,19 @@ public class Data {
         this.fecha = fecha;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(String type_id) {
+        this.type_id = type_id;
+    }
 }

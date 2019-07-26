@@ -15,6 +15,9 @@ public interface DataService {
     @GET("citas/{ownerID}/owners")
     Call<Data> getCitas(@Path("ownerID") String ownerID);
 
+    @GET("owner/{ownerID}")
+    Call<Data> getOwnerId(@Path("ownerID") String ownerID);
+
     @DELETE("citas/{cita}")
     Call<Data> delete(@Path("cita") int cita_id);
 
@@ -29,6 +32,11 @@ public interface DataService {
 
     @POST("citas/new")
     Call<Data> addCita(@Body Data data);
+
+    @GET("types")
+    Call<Data> setType();
+
+
 
 
 
